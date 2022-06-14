@@ -108,3 +108,98 @@ select{
     color: #42515f;
     background-color: transparent;
 }
+/* buttons */
+.buttonParent{
+    display: flex;
+    margin-bottom: 10px;
+    justify-content: space-between;
+    margin-top: 20px;   
+}
+.button{
+    font-size: 15px;
+    font-family: 'Roboto';
+    letter-spacing: 0;
+    color: #42515f;
+    opacity: 1;
+    background: #E2E2E2 0% 0% no-repeat padding-box;
+    border: none;
+    font-weight: 400;
+    min-width: 100px;
+    padding: 5px;
+    border: 1px solid #707070;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 2px;
+    width: 100px;
+    height: 30px;
+    transition-delay: 0.3s;
+}
+.submitButton{
+    /* background-color: #f5f5f5; */
+    margin-right: 10px;
+    top: 915px;
+    left: 994px;
+    
+}
+.resetButton{
+    top: 915px;
+    left: 1194px;
+}
+.cancelButton{
+    text-decoration: none;
+    text-align: center;
+    top: 915px;
+    left: 546px;
+}
+/* hover button */
+.cancelButton:hover, .resetButton:hover{
+    background-color: #707070;
+    color: #fff;
+}
+.submitButton:hover{
+    background-color: #82a70c;
+    color: #fff;
+}
+/* media query */
+@media only screen and (max-wdth: 960px){
+    .profile-radio-content{
+        flex-flow: wrap;
+        margin: 0;
+    }
+    .cancelButton{
+        margin-left: 0;
+    }
+    .form{
+        width: 85%;
+        padding: 44px 20px;
+    }
+}
+@media screen and (max-width: 600px) {
+    .form{
+        margin: 10px;
+    }
+    .row{
+        flex-direction: column;
+    }
+    .submitButton{
+        justify-content: flex-start;
+        margin-left: 10px;
+    }
+    .profile-radio-content{
+        flex-flow: wrap;
+        margin: 0;
+    }
+    .submit-reset{
+        width: 100%;
+        display: flex;
+        flex-grow: 1;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+    .buttonParent{
+        flex-direction: column-reverse;
+        align-items: flex-start;
+    }
+}

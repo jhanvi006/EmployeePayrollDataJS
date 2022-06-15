@@ -1,8 +1,9 @@
 // const fs = require('fs');
-function save(){
+const save = () => {
     try {
-        createEmployeePayroll();
-        createJsonObject();
+        let employeePayrollData =  createEmployeePayroll();
+        createAndUpdateStorage(employeePayrollData);
+        // createJsonObject();
     } catch (e) {
         return;
     }
@@ -33,8 +34,8 @@ createEmployeePayroll = () => {
     employeePayrollData.notes = document.getElementById('notes').value;
 
     data = employeePayrollData.toString();
-    console.log(data);
     alert(data);
+    return data;
 }
 const getSelectedValues = (propertyValue) => {
     let allItems = document.querySelectorAll(propertyValue);
@@ -45,6 +46,18 @@ const getSelectedValues = (propertyValue) => {
         }
     });
     return setItems;
+}
+//-------------- create and update storage ---------------------
+const createAndUpdateStorage = (employeePayrollData) => {
+    let employeePayrollList = JSON.parse(localStorage.getItem("EmployeePayrollList"));
+    if(employeePayrollList != undefined){
+        employeePayrollList.push(employeePayrollData);
+    }
+    else{
+        employeePayrollList = [employeePayrollData];
+    }
+    alert(employeePayrollList.toString());
+    localStorage.setItem("EmployeePayrollList", JSON.stringify(employeePayrollList));
 }
 //-------------- create json object ---------------------
 const createJsonObject = () => {

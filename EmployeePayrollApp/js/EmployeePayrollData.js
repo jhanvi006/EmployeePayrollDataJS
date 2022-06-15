@@ -1,16 +1,7 @@
 class EmployeePayrollData{
-    constructor(...params){
-        this.name = params[0];
-        this.profile = params[1];
-        this.gender = params[2];
-        this.department = params[3];
-        this.salary = params[4];
-        this.startDate = params[5];
-        this.notes = params[6];
-    }
     get name(){ return this._name; }
     set name(name){ 
-        let nameRegex = RegExp('^[A-Z]{1}[a-zA-Z\\s]{2,}$');
+        let nameRegex = RegExp('^[A-Z]{1}[A-Za-z]{2,}\\s?[a-zA-Z]*$');
         if(nameRegex.test(name))
             this._name = name;
         else throw 'Name is Incorrect!'; 
@@ -41,11 +32,11 @@ class EmployeePayrollData{
     }
 
     toString(){
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        const empDate = this.startDate === undefined ? "undefined" : 
-                        this.startDate.toLocaleDateString("en-US", options);
+        // const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        // const empDate = this.startDate === undefined ? "undefined" : 
+        //                 this.startDate.toLocaleDateString("en-US", options);
         return `name: ${this.name}, profile: ${this.profile}, gender: ${this.gender}, 
-        department: ${this.department}, salary: ${this.salary}, start date: ${empDate}, 
+        department: ${this.department}, salary: ${this.salary}, start date: ${this.startDate}, 
         notes: ${this.notes}`;
     }
 }

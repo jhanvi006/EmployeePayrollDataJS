@@ -10,7 +10,7 @@
 <body>
     <header class="header-content header">
         <div class="logo-content">
-            <img src="assets/images/logo.png" alt="">
+            <a href="EmployeeDetails.html"><img src="assets/images/logo.png" alt=""></a>
             <div>
                 <span class="emp-text">EMPLOYEE</span><br>
                 <span class="emp-text emp-payroll">PAYROLL</span><br>
@@ -23,7 +23,7 @@
             <div class="row-content">
                 <label class="label text" for="name">Name</label>
                 <input type="text" class="input" id="name" name="name" placeholder="Your name..." required>
-                <error-output class="text-error" for="text"></error-output>
+                <error-output class="name-error" for="name"></error-output>
             </div>
             <div class="row-content">
                 <label class="label text" for="profile">Profile Image</label>
@@ -135,6 +135,7 @@
                         <option value="2016">2016</option>
                     </select>
                 </div>
+                <error-output class="date-error" for="startDate"></error-output>
             </div>
             <div class="row-content">
                 <label class="label text" for="notes">Notes</label>
@@ -149,7 +150,17 @@
             </div>
         </form>
     </div>
-    <script src="js/EmployeePayrollService.js"></script>
+    <footer class="header-content header">
+        <div class="logo-content">
+            <a href="EmployeeDetails.html"><img src="assets/images/logo.png" alt=""></a>
+            <div>
+                <span class="emp-text">EMPLOYEE</span><br>
+                <span class="emp-text emp-payroll">PAYROLL</span><br>
+            </div>
+        </div>
+    </footer>
+    <script src="js/EmployeePayrollData.js"></script>
     <script src="js/script.js"></script>
+    <script src="js/validation.js"></script>
 </body>
 </html>

@@ -1,29 +1,60 @@
 // const fs = require('fs');
-//--------------  event listener for name validation --------------
-window.addEventListener('DOMContentLoaded', (event) =>{
-    const name = document.querySelector('#name');
-    const textError = document.querySelector('.text-error');
-    name.addEventListener('input', function(){
-        if(name.value.length == 0){
-            textError.textContent = "Name can't be empty";
-            return;
-        }
-        try{
-            new EmployeePayrollData(name.value);
-            textError.textContent = "";
-        }
-        catch(e){
-            textError.textContent = e;
+function save(){
+    try {
+        createEmployeePayroll();
+        createJsonObject();
+    } catch (e) {
+        return;
+    }
+}
+//------------------------create employee payroll object ----------------------------
+createEmployeePayroll = () => {
+    let employeePayrollData = new EmployeePayrollData();
+    try {
+        employeePayrollData.name = document.getElementById('name').value;
+    } catch (e) {
+        nameError = document.querySelector('.name-error');
+        nameError.textContent = e;
+    }
+    employeePayrollData.profile = document.querySelector('input[name="profile"]:checked').value;
+    employeePayrollData.gender = document.querySelector('input[name="gender"]:checked').value;
+    employeePayrollData.department = getSelectedValues('[name=department]');
+    employeePayrollData.salary = document.getElementById('salary').value;
+    const day = document.getElementById('day').value;
+    const month = document.getElementById('month').value;
+    const year = document.getElementById('year').value;
+    const date = day+' '+month+' '+year;
+    try {
+        employeePayrollData.startDate = date;
+    } catch (e) {
+        const dateError = document.querySelector('.date-error');
+        dateError.textContent = e;
+    }
+    employeePayrollData.notes = document.getElementById('notes').value;
+
+    data = employeePayrollData.toString();
+    console.log(data);
+    alert(data);
+}
+const getSelectedValues = (propertyValue) => {
+    let allItems = document.querySelectorAll(propertyValue);
+    let setItems = [];
+    allItems.forEach(item => {
+        if(item.checked){
+            setItems.push(item.value);
         }
     });
-    //--------------  event listener for salary --------------
-    const salary = document.querySelector('#salary');
-    const output = document.querySelector('.salary-output');
-    salary.addEventListener('input', function(){
-        output.textContent = salary.value;
-    });
-});
+    return setItems;
+}
 //-------------- create json object ---------------------
+const createJsonObject = () => {
+    // event.preventDefault();
+    const form = document.querySelector('form');
+    const data = formToJSON(form.elements);
+    const jsonData = JSON.stringify(data, null, '');
+    console.log(jsonData);
+    // fs.writeFileSync('../assets/json/db.json', jsonData, finished);
+}
 const isValidElement = (element) => {
     return element.name && element.value;
 };
@@ -50,43 +81,3 @@ function finished(err)
 {
     alert('success');
 }
-const handleFormSubmit = (event) => {
-        event.preventDefault();
-        const data = formToJSON(form.elements);
-        const jsonData = JSON.stringify(data, null, '');
-        console.log(jsonData);
-        // fs.writeFileSync('../assets/json/db.json', jsonData, finished);
-}
-const form = document.querySelector('form');
-form.addEventListener('submit', handleFormSubmit);
-//------------------------end json object ----------------------------
-// function save(){
-    // const name = document.getElementById('name').value;
-    // const profile = document.querySelector('input[name="profile"]:checked').value;
-    // const gender = document.querySelector('input[name="gender"]:checked').value;
-    // let department = []; 
-    // let inputElements = document.getElementsByClassName('checkbox');
-    // for(let i=0; inputElements[i]; i++){
-    //     if(inputElements[i].checked){
-    //         department.push(inputElements[i].value);
-    //     }
-    // }
-    // // const department = document.querySelector('.checkbox:checked').value;
-    // const salary = document.getElementById('salary').value;
-    // const day = document.getElementById('day').value;
-    // const month = document.getElementById('month').value;
-    // const year = document.getElementById('year').value;
-    // const date = day+' '+month+', '+year;
-    // const notes = document.getElementById('notes').value;
-
-    // try{
-    //     new EmployeePayrollData(name, profile, gender, 
-    //         department, salary, date, notes);
-    //     data = employeePayrollData.toString();
-    //     console.log(data);
-    //     alert("Data stored for "+name);
-    // }
-    // catch(e){
-    //     console.log(e);
-    // }
-// }

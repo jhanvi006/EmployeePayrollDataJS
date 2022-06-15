@@ -160,6 +160,13 @@ select{
     background-color: #82a70c;
     color: #fff;
 }
+/* error output */
+error-output{
+    margin-left: 10px;
+    font-size: 12px;
+    font-style: italic;
+    color: red;
+}
 /* media query */
 @media only screen and (max-wdth: 960px){
     .profile-radio-content{

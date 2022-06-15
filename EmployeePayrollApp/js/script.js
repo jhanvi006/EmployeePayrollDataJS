@@ -94,3 +94,32 @@ function finished(err)
 {
     alert('success');
 }
+//-------------- reset form ---------------------
+const resetForm = () => {
+    setValue('#name', '');
+    unsetSelectedValues('[name=profile]');
+    unsetSelectedValues('[name=gender]');
+    unsetSelectedValues('[name=department]');
+    setValue('#salary', '');
+    setTextValue('.salary-output', '400000');
+    setValue('#day', '1');
+    setValue('#month', 'January');
+    setValue('#year', '2022');
+    setValue('#notes', '');
+    setTextValue('.name-error', '');
+    setTextValue('.date-error', '');
+}
+const setValue = (selector, value) => {
+    const element = document.querySelector(selector);
+    element.value = value;
+}
+const unsetSelectedValues = (propertyValue) => {
+    let allItems = document.querySelectorAll(propertyValue);
+    allItems.forEach(item => {
+        item.checked = false;
+    });
+}
+const setTextValue = (selector, value) => {
+    const element = document.querySelector(selector);
+    element.textContent = value;
+}

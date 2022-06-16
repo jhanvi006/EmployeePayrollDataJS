@@ -34,7 +34,7 @@ createEmployeePayroll = () => {
     employeePayrollData.notes = document.getElementById('notes').value;
 
     data = employeePayrollData.toString();
-    alert(data);
+    alert("Data added successfully.");
     return data;
 }
 const getSelectedValues = (propertyValue) => {

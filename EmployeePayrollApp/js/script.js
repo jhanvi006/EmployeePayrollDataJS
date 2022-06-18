@@ -5,12 +5,13 @@ const save = () => {
         createAndUpdateStorage(employeePayrollData);
         // createJsonObject();
     } catch (e) {
-        return;
+        console.log(e);
     }
 }
 //------------------------create employee payroll object ----------------------------
-createEmployeePayroll = () => {
+const createEmployeePayroll = () => {
     let employeePayrollData = new EmployeePayrollData();
+    employeePayrollData.id = createNewEmployeeId();
     try {
         employeePayrollData.name = document.getElementById('name').value;
     } catch (e) {
@@ -33,9 +34,19 @@ createEmployeePayroll = () => {
     }
     employeePayrollData.notes = document.getElementById('notes').value;
 
-    data = employeePayrollData.toString();
-    alert("Data added successfully.");
-    return data;
+    alert("Data added successfully for "+employeePayrollData.name);
+    console.log(employeePayrollData.toString());
+    return employeePayrollData;
+}
+
+const createNewEmployeeId = () => {
+    let employeePayrollList = JSON.parse(localStorage.getItem("EmployeePayrollList"));
+    let empId;
+    if (employeePayrollList != undefined)
+        empId = employeePayrollList.length + 1;
+    else
+        empId = 1;
+    return empId;
 }
 const getSelectedValues = (propertyValue) => {
     let allItems = document.querySelectorAll(propertyValue);
@@ -56,7 +67,7 @@ const createAndUpdateStorage = (employeePayrollData) => {
     else{
         employeePayrollList = [employeePayrollData];
     }
-    alert(employeePayrollList.toString());
+    console.log(employeePayrollList.toString());
     localStorage.setItem("EmployeePayrollList", JSON.stringify(employeePayrollList));
 }
 //-------------- create json object ---------------------

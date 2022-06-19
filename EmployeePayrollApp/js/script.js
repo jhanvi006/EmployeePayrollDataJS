@@ -38,16 +38,24 @@ const createEmployeePayroll = () => {
     console.log(employeePayrollData.toString());
     return employeePayrollData;
 }
-
 const createNewEmployeeId = () => {
-    let employeePayrollList = JSON.parse(localStorage.getItem("EmployeePayrollList"));
-    let empId;
-    if (employeePayrollList != undefined)
-        empId = employeePayrollList.length + 1;
-    else
-        empId = 1;
-    return empId;
+    let employeeId = localStorage.getItem('EmployeeId');
+    employeeId = !employeeId ? 1 : (parseInt(employeeId)+1);
+    localStorage.setItem('EmployeeId', employeeId);
+    return employeeId;
 }
+
+// const createNewEmployeeId = () => {
+//     let employeePayrollList = getEmployeePayrollDataFromStorage();
+//     let empId = 1;
+//     for(const empData of employeePayrollList){
+//         if (empData._id == empId)
+//             empId = empId + 1;
+//         // else
+//         //     empId = 1;
+//     }
+//     return empId;
+// }
 const getSelectedValues = (propertyValue) => {
     let allItems = document.querySelectorAll(propertyValue);
     let setItems = [];

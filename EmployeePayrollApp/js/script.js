@@ -1,3 +1,5 @@
+let isUpdate = false;
+let employeePayrollObject = {};
 // const fs = require('fs');
 const save = () => {
     try {
@@ -78,41 +80,6 @@ const createAndUpdateStorage = (employeePayrollData) => {
     console.log(employeePayrollList.toString());
     localStorage.setItem("EmployeePayrollList", JSON.stringify(employeePayrollList));
 }
-//-------------- create json object ---------------------
-const createJsonObject = () => {
-    // event.preventDefault();
-    const form = document.querySelector('form');
-    const data = formToJSON(form.elements);
-    const jsonData = JSON.stringify(data, null, '');
-    console.log(jsonData);
-    // fs.writeFileSync('../assets/json/db.json', jsonData, finished);
-}
-const isValidElement = (element) => {
-    return element.name && element.value;
-};
-const isValidValue = (element) => {
-    return !['checkbox', 'radio'].includes(element.type) || element.checked;
-};
-const isCheckbox = (element) => element.type === 'checkbox';
-const formToJSON = (elements) => 
-    [].reduce.call(
-        elements,
-        (data, element) => {
-            if (isValidElement(element) && isValidValue(element)) {
-                if (isCheckbox(element)) {
-                  data[element.name] = (data[element.name] || []).concat(element.value);
-                } else {
-                  data[element.name] = element.value;
-                }
-            }
-            return data;
-        },
-        {},
-    );
-function finished(err)
-{
-    alert('success');
-}
 //-------------- reset form ---------------------
 const resetForm = () => {
     setValue('#name', '');
@@ -121,9 +88,9 @@ const resetForm = () => {
     unsetSelectedValues('[name=department]');
     setValue('#salary', '');
     setTextValue('.salary-output', '400000');
-    setValue('#day', '1');
-    setValue('#month', 'January');
-    setValue('#year', '2022');
+    setSelectedIndex('#day', 0);
+    setSelectedIndex('#month', 0);
+    setSelectedIndex('#year', 0);
     setValue('#notes', '');
     setTextValue('.name-error', '');
     setTextValue('.date-error', '');
@@ -137,6 +104,23 @@ const unsetSelectedValues = (propertyValue) => {
     allItems.forEach(item => {
         item.checked = false;
     });
+}
+const setSelectedValues = (propertyValue, value) => {
+    let allItems = document.querySelectorAll(propertyValue);
+    allItems.forEach(item => {
+        if(Array.isArray(value)){
+            if (value.includes(item.value)) {
+                item.checked = true;
+            }
+        }
+        else if(item.value === value){
+            item.checked = true;
+        }
+    }) 
+}
+const setSelectedIndex = (id, index){
+    const element = document.querySelector(id);
+    element.selectedIndex = index;
 }
 const setTextValue = (selector, value) => {
     const element = document.querySelector(selector);

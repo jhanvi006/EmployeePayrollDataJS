@@ -2,6 +2,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     validateName();
     updateSalaryValue();
     validateStartDate();
+    checkForUpdate();
 });
 const validateName = () => {
     const name = document.querySelector('#name');
@@ -56,4 +57,24 @@ checkStartDate = (date) => {
     const diff = Math.abs(currentDate.getTime() - startDate.getTime());
     if(diff/(1000*60*60*24)>30)
         throw "Start Date is beyond 30 Days";
+}
+const checkForUpdate = () => {
+    const employeePayrollJson = localStorage.getItem('editEmp');
+    isUpdate = employeePayrollJson ? true : false;
+    if(!isUpdate) return;
+    employeePayrollObject = JSON.parse(employeePayrollJson);
+    setForm();
+}
+const setForm = () => {
+    setValue('#name', employeePayrollObject._name);
+    setSelectedValues('[name=profile]', employeePayrollObject._profile);
+    setSelectedValues('[name=gender]', employeePayrollObject._gender);
+    setSelectedValues('[name=department]', employeePayrollObject._department);
+    setValue('#salary', employeePayrollObject._salary);
+    setTextValue('.salary-output', employeePayrollObject._salary);
+    let date = employeePayrollObject._startDate.split(" ");
+    setValue('#day', date[0]);
+    setValue('#month', date[1]);
+    setValue('#year', date[2]);
+    setValue('#notes', employeePayrollObject._notes);
 }
